@@ -46,32 +46,36 @@ def re_organize(chro,tmax) :
 #            chro[num1][4] = chro[num1][5]
 #            chro[num1][5] = change2
 
-def merge(chro,tmax) :
+def merge(d,tmax) :
     print ('------ merging ------')
+    for num1 in range(0,tmax):
+        #print(' => ' + str((num1+1.0)*100 / (tmax + 1)) + '%')
+        for num2 in range(0,tmax):
+            try:
+                if d[num1][0]==d[num2][0] and num1!=num2:
+                    if (int(d[num1][1])<=int(d[num2][1])) and (int(d[num1][2])<=int(d[num2][2])) and (int(d[num1][2])>=int(d[num2][1])):
+                        d[num1][2]=d[num2][2]
+                        del d[num2]
+                        num2=num2-1
+                        continue
+                    elif (int(d[num1][1])<=int(d[num2][1])) and (int(d[num1][2])>=int(d[num2][2])):
+                        del d[num2]
+                        num2=num2-1
+                        continue
+                    elif (int(d[num1][1])>=int(d[num2][1])) and (int(d[num1][2])<=int(d[num2][2])):
+                        d[num1][1]=d[num2][1]
+                        d[num1][2]=d[num2][2]
+                        del d[num2]
+                        num2=num2-1
+                        continue
+                    elif (int(d[num1][1])>=int(d[num2][1])) and (int(d[num1][2])>=int(d[num2][2])) and (int(d[num1][1])<=int(d[num2][2])):
+                        d[num1][1]=d[num2][1]
+                        del d[num2]
+                        num2=num2-1
+                        continue
+            except:
+                continue
 
-    numero=[]
-    for num1 in range(0,tmax):
-        numero.append(0)
-    for num1 in range(0,tmax):
-            numero[num1]=1
-            for num2 in range(num1+1,tmax):
-                if chro[num1][0]==chro[num2][0] and numero[num2]==0:
-                    if (int(chro[num1][1])<=int(chro[num2][1])) and (int(chro[num1][2])<=int(chro[num2][2])) and (int(chro[num1][2])>int(chro[num2][1])):
-                        chro[num1][2]=chro[num2][2]
-                        chro[num2][1]=chro[num1][1]
-                        numero[num2]=1
-                    elif (int(chro[num1][1])<=int(chro[num2][1])) and (int(chro[num1][2])>=int(chro[num2][2])):
-                        chro[num2][1]=chro[num1][1]
-                        chro[num2][2]=chro[num1][2]
-                        numero[num2]=1
-                    elif (int(chro[num1][1])>=int(chro[num2][1])) and (int(chro[num1][2])<=int(chro[num2][2])):
-                        chro[num1][1]=chro[num2][1]
-                        chro[num1][2]=chro[num2][2]
-                        numero[num2]=1
-                    elif (int(chro[num1][1])>=int(chro[num2][1])) and (int(chro[num1][2])>=int(chro[num2][2])) and (int(chro[num1][1])<int(chro[num2][2])):
-                        chro[num1][1]=chro[num2][1]
-                        chro[num2][2]=chro[num1][2]
-                        numero[num2]=1
 
 
 def main ():
